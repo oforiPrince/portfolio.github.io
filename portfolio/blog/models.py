@@ -21,6 +21,9 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_blog_image_url(self):
+        return self.main_image.url
 
     class Meta:
         db_table = 'blogs'

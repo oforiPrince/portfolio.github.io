@@ -99,7 +99,7 @@ class ProjectImage(models.Model):
         return self.image.url
 
     def __str__(self):
-        return self.image.url
+        return self.project_name.title
 
 
 class Project(models.Model):

@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Create Blog</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'backend:dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item active">Create Blog</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <form action="" method="post">
+      <div class="form-group">
+        <label for="author">Author</label>
+        <select class="form-control" name="author" id="author">
+          <option value="">Select Author</option>
+          {% for user in users %}
+            <option value="{{user.id}}">{{user.name}}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+
+        </div>
+      </div>
+      <div class="form-group mt-4">
+        <label for="title">Heading</label>
+        <input type="text" name="title" id="title" class="form-control">
+      </div>
+      <div class="invalid-feedback">
+
+      </div>
+      <div class="form-group mt-4">
+        
+      </div>
+    </form>
+  </section>
+
+
+
+</main>
+{% endblock content %}
