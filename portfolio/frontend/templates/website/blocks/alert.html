@@ -1,0 +1,25 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% if messages %}
+<div class="d-flex justify-content-center">
+
+    <div class="col-lg-4 alert alert-warning">
+        <div>
+            {% for message in messages %}
+            <strong>{{message}}</strong>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        window.setTimeout(function () {
+            $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
+                $(this).remove();
+            });
+        }, 5000);
+
+    });
+</script>
