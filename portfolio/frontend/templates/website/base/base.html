@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8" />
+    <title>Selfown - Responsive Personal page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Premium Bootstrap 5 Template" />
+    <meta name="keywords" content="bootstrap 5, premium, marketing, multipurpose" />
+    <meta content="Mannatthemes" name="author" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'frontend/images/favicon.ico' %}" />
+
+    <!-- css -->
+    <link href="{% static 'frontend/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'frontend/css/style-dark.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- colors -->
+    <link href="{% static 'frontend/css/colors/default.css' %}" rel="stylesheet" type="text/css" id="color-opt" />
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="80">
+    <!-- start navbar -->
+    {% include "website/blocks/nav.html" %}
+    <!-- end navbar -->
+    {% block content %}
+      
+    {% endblock content %}
+    <!-- start footer -->
+    {% include "website/blocks/footer.html" %}
+
+
+    <script src="{% static 'frontend/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- feather icon -->
+    <script src="{% static 'frontend/js/feather.js' %}"></script>
+    <script src="{% static 'frontend/js/shuffle.min.js' %}"></script>
+    <script src="{% static 'frontend/js/projects.init.js' %}"></script>
+    <script src="{% static 'frontend/js/text-roted.js' %}"></script>
+
+    <script src="{% static 'frontend/js/video.init.js' %}"></script>
+    <script src="{% static 'frontend/js/app.js' %}"></script>
+</body>
+
+</html>
