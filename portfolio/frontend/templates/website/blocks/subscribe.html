@@ -1,0 +1,35 @@
+{% load static %}
+<div class="position-relative">
+    <div class="shape overflow-hidden text-light">
+        <svg viewBox="0 0 2880 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M110 105L2160 0H2880V150H0V105H110Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+
+<section class="section bg-light" id="cta">
+   <div class="container">
+      <div class="row align-items-center">
+         <div class="col-lg-6">
+            <div class="pattern-1 position-absolute">
+               <img src="{% static 'frontend/images/p-1.svg' %}" alt="" class="" height="80">
+            </div>
+            <h2 class="text-dark" style="line-height: 1.5; position: relative;">I Am Available For Freelancer.
+            </h2>
+            <p class="text-muted mb-0">Browse hundreds of job offers and find the bestsuitable position.</p>
+         </div>
+         <!--end col-->
+         <div class="col-lg-6 ml-auto">
+            <div class="cta-search">
+               <form class="position-relative">
+                  <input type="email" placeholder="Email Address" required="">
+                  <button type="submit" class="btn btn-dark">Send Massage</button>
+               </form>
+            </div>
+         </div>
+         <!--end col-->
+      </div>
+      <!--end row-->
+   </div>
+   <!--end container-->
+</section>

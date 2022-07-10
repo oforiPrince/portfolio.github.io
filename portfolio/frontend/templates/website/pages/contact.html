@@ -1,8 +1,9 @@
-{% extends "websiteV1/base/base.html" %}
+{% extends "website/base/base.html" %}
+{% load static %}
 {% block content %}
 <!-- start hero -->
 <section class="hero-one position-relative bg-black" id="about"
-    style="background-image: url('static/frontend1/images/personal/main-bg.png'); background-size: cover; background-position: center center;">
+    style="background-image: url('static/frontend/images/personal/main-bg.png'); background-size: cover; background-position: center center;">
     <div class="container">
         <div class="row align-items-center justify-content-center py-100">
             <div class="col-lg-7 text-center py-5 text-center">
@@ -28,7 +29,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card bg-white"
-                    style="background: url('static/frontend1/images/personal/testi-pet.png'); background-repeat: no-repeat; background-size: 15%; background-position: right bottom;">
+                    style="background: url('static/frontend/images/personal/testi-pet.png'); background-repeat: no-repeat; background-size: 15%; background-position: right bottom;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
@@ -79,7 +80,7 @@
                             </div>
                             <!-- end col -->
                             <div class="col-md-4">
-                                <img src="{% static 'frntend1/images/personal/contact.svg' %}" alt="" height="200"
+                                <img src="{% static 'frntend/images/personal/contact.svg' %}" alt="" height="200"
                                     class=" mx-auto d-block mb-5">
                                 <div class="d-flex">
                                     <div

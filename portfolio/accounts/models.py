@@ -2,12 +2,16 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import AccountManager
-from backend.models import Career
+from backend.models import Career,SpokenLanguage,Language
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     fullname = models.CharField(max_length=100)
+    dob = models.DateField(null=True, blank=True)
+    spoken_languages = models.ManyToManyField(SpokenLanguage)
+    programming_languages = models.ManyToManyField(Language)
+    nationality = models.CharField(max_length=20,default='Ghana')
     email = models.EmailField(max_length=100, unique=True)
     phone = models.CharField(max_length=10)
     photo = models.ImageField(
@@ -22,6 +26,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+    def get_photo_url(self):
+        if self.photo:
+            # return self.photo.url
+            return '/static/frontend/images/personal/1.png'
+        else:
+            return '/static/frontend/images/personal/1.png'
 
     class Meta:
         db_table = 'users'

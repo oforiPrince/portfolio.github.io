@@ -15,15 +15,21 @@ class indexView(View):
         resumes = Resume.objects.all()
         certificates = Certificate.objects.all()
         knowledges = Knowledge.objects.all()
-      #   blogs = Blog.objects.all().order_by('-publish_date')
+        blogs = Blog.objects.all().order_by('-publish_date')
         categories = Category.objects.all()
+        frameworks = FriendlyFrameWork.objects.all()
+        services = Service.objects.all()
+        schools = School.objects.all()
         context = {
             'user': user,
             'resumes': resumes,
             'certificates': certificates,
             'knowledges': knowledges,
-            # 'blogs': blogs,
-            'categories': categories
+            'blogs': blogs,
+            'categories': categories,
+            'frameworks':frameworks,
+            'services':services,
+            'schools':schools
         }
         return render(request, template_name, context)
 
@@ -37,6 +43,63 @@ class indexView(View):
         messages.success(request, "email sent successfully")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
+
+class AboutView(View):
+    def get(self, request):
+        template_name = 'website/pages/about.html'
+        user = User.objects.all().first()
+        context = {
+            'user': user
+        }
+        return render(request, template_name, context)
+    
+class ServicesView(View):
+    def get(self, request):
+        template_name = 'website/pages/services.html'
+        user = User.objects.all().first()
+        context = {
+            'user': user
+        }
+        return render(request, template_name, context)
+
+class ResumeView(View):
+    def get(self,request):
+        template_name = 'website/pages/resume.html'
+        
+        return render(request, template_name)
+
+class ProjectsView(View):
+    def get(self, request):
+        template_name = 'website/pages/projects.html'
+        user = User.objects.all().first()
+        projects = Project.objects.all()
+        context = {
+            'user': user,
+            'projects': projects
+        }
+        return render(request, template_name, context)
+    
+class BlogView(View):
+    def get(self, request):
+        template_name = 'website/pages/blog.html'
+        user = User.objects.all().first()
+        blogs = Blog.objects.all().order_by('-publish_date')
+        tags = Tag.objects.all()
+        context = {
+            'user': user,
+            'blogs': blogs,
+            'tags': tags
+        }
+        return render(request, template_name, context)
+
+class ContactView(View):
+    def get(self, request):
+        template_name = 'website/pages/contact.html'
+        user = User.objects.all().first()
+        context = {
+            'user': user
+        }
+        return render(request, template_name, context)
 
 class BlogDetailView(View):
     def get(self, request, pk):

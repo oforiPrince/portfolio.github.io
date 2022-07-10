@@ -19,32 +19,32 @@ function initTextAnimSlider() {
     animFunc();
     getHolderWidth();
 
-    function animFunc() {
-        clearTimeout(setTimeAnim);
+    // function animFunc() {
+    //     clearTimeout(setTimeAnim);
 
-        setTimeAnim = setTimeout(function() {
-            animFirstLoad = true;
+    //     setTimeAnim = setTimeout(function() {
+    //         animFirstLoad = true;
 
-            if (animPrevItem !== null) {
-                animPrevItem.classList.add(animOut);
-            }
-            animNextItem = textAnimItems.children[animCounter];
-            animNextItem.classList.remove(animOut);
-            animNextItem.classList.add(animIn);
+    //         if (animPrevItem !== null) {
+    //             animPrevItem.classList.add(animOut);
+    //         }
+    //         animNextItem = textAnimItems.children[animCounter];
+    //         animNextItem.classList.remove(animOut);
+    //         animNextItem.classList.add(animIn);
 
-            animLine.style.width = animNextItem.clientWidth + 'px';
-            animLine.classList.add(lineActiveClass);
+    //         animLine.style.width = animNextItem.clientWidth + 'px';
+    //         animLine.classList.add(lineActiveClass);
 
-            animPrevItem = animNextItem;
+    //         animPrevItem = animNextItem;
 
-            if (animCounter === textAnimItem.length - 1) {
-                animCounter = 0;
-            } else {
-                animCounter++;
-            }
-            animFunc();
-        }, animFirstLoad ? animDuration : 100);
-    }
+    //         if (animCounter === textAnimItem.length - 1) {
+    //             animCounter = 0;
+    //         } else {
+    //             animCounter++;
+    //         }
+    //         animFunc();
+    //     }, animFirstLoad ? animDuration : 100);
+    // }
 
     function getHolderWidth() {
         var itemsWidth = [];

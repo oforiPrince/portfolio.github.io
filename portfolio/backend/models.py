@@ -12,6 +12,7 @@ class Career(models.Model):
 
 class School(models.Model):
     name = models.CharField(max_length=100)
+    short_information = models.TextField(max_length=250, null=True, blank=True)
     location = models.CharField(max_length=100)
     degree = models.CharField(max_length=100)
     major = models.CharField(max_length=100)
@@ -33,7 +34,13 @@ class Service(models.Model):
     name = models.CharField(max_length=100)
     icon = models.ImageField(
         upload_to='uploads/images/service_icons/', blank=True)
-    service_description = models.TextField(max_length=500)
+    service_description = models.TextField(max_length=100)
+    
+    def get_icon_url(self):
+        if self.icon:
+            return self.icon.url
+        else:
+            pass
 
     def __str__(self):
         return self.name
@@ -71,6 +78,18 @@ class Language(models.Model):
 class AcquiredSkill(models.Model):
     name = models.CharField(max_length=100)
     languages = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return self.name
+
+
+class FriendlyFrameWork(models.Model):
+    name = models.CharField(max_length=25)
+    icon = models.ImageField(upload_to='uploads/images/friendly_frameworks/')
+    years_of_experience = models.IntegerField(default=1)
+
+    def get_icon_url(self):
+        return self.icon.url
 
     def __str__(self):
         return self.name
@@ -141,6 +160,13 @@ class SeekHelp(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=30)
     message = models.TextField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class SpokenLanguage(models.Model):
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
