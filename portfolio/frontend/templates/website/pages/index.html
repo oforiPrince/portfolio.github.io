@@ -1,5 +1,5 @@
 {% extends "website/base/base.html" %}
-{% block home_active %}active{% endblock home_active %}
+{% block home_active %}active{% endblock%}
 {% load static %}
 {% block content %}
 <!-- start hero -->
@@ -144,7 +144,6 @@
 <!-- end about -->
 <!-- start services -->
 {% if services %}
-
 <section class="section bg-gradient-light-white" id="services">
    <div class="container">
       <div class="row justify-content-center mb-4">
@@ -218,7 +217,7 @@
       <div class="row">
          <div class="col-12">
             <div class="row g-0">
-               {% if schools %} 
+               {% if schools %}
                <div class="col-lg-4 col-md-6">
                   <div class="card rounded bg-light h-100 border-0">
                      <div class="card-body d-flex justify-content-center align-items-center">
@@ -239,18 +238,19 @@
                   <div class="card rounded bg-white  h-100 border-0">
                      <div class="card-body p-0">
                         <div class="accordion accordion-flush" id="Education_accordion">
-                           {% for school in schools %} 
+                           {% for school in schools %}
                            <div class="accordion-item">
                               <h2 class="accordion-header" id="prime">
                                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#Education" aria-expanded="false">
+                                    data-bs-target="#Education_{{school.id}}" aria-expanded="false">
                                     MSc IT Master Degree
                                     <span class="fw-medium text-primary ms-auto fs-14">{{school.entry_year}} -
                                        {{school.graduation_year}}</span>
                                  </button>
                               </h2>
-                              <div id="Education" class="accordion-collapse collapse" aria-labelledby="prim"
-                                 data-bs-parent="#Education_accordion">
+                              <div id="Education_{{school.id}}"
+                                 class="accordion-collapse collapse {% if forloop.counter == 1 %}show{%endif%}"
+                                 aria-labelledby="prim" data-bs-parent="#Education_accordion">
                                  <div class="accordion-body">
                                     <p class="text-muted mb-3">{{school.short_information}}</p>
                                     </p>
@@ -271,7 +271,7 @@
                {% endif %}
             </div>
             <!-- end row -->
-            {% if resumes %}  
+            {% if resumes %}
             <hr class="hr-dashed">
             <div class="row g-0">
                <div class="col-lg-4 col-md-6">
@@ -296,16 +296,17 @@
                         <div class="accordion accordion-flush" id="Experience_accordion">
                            {% for resume in resumes %}
                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="first-co">
+                              <h2 class="accordion-header" id="resume_{{resume.id}}">
                                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#Experience_one" aria-expanded="false">
+                                    data-bs-target="#Experience_{{resume.id}}" aria-expanded="false">
                                     ABC themes - Web Design IT Company
                                     <span class="fw-medium text-primary ms-auto fs-14">2020 -
                                        2021</span>
                                  </button>
                               </h2>
-                              <div id="Experience_one" class="accordion-collapse collapse show"
-                                 aria-labelledby="first-co" data-bs-parent="#Experience_accordion">
+                              <div id="Experience_{{resume.id}}"
+                                 class="accordion-collapse collapse {% if forloop.counter == 1 %}show{%endif%}"
+                                 aria-labelledby="resume_{{resume.id}}" data-bs-parent="#Experience_accordion">
                                  <div class="accordion-body">
                                     <p class="text-muted mb-1">- Delivered quality code by applying the
                                        best development practices</p>
@@ -351,6 +352,7 @@
    </div>
 </div>
 <!--what client says -->
+{% if testimonials %}
 <section class="section bg-gradient-light-white" id="review">
    <div class="container">
       <div class="row">
@@ -363,18 +365,18 @@
                            <div id="demo" class="carousel carousel-dark slide" data-bs-ride="carousel"
                               data-bs-wrap="true">
                               <div class="carousel-inner">
-                                 <div class="carousel-item text-center active" data-bs-interval="4000">
+                                 {% for testimonial in testimonials %}
+                                 <div class="carousel-item text-center {% if forloop.counter == 1 %}active{%endif%}"
+                                    data-bs-interval="4000">
                                     <img src="{% static 'frontend/images/logos/logo-1.svg' %}" alt="" class="my-3"
                                        height="70">
                                     <p class="font-secondary fs-22 fst-italic mb-4 px-4">
-                                       I feel confident imposing change on myself. It's a lot more fun
-                                       progressing than looking back. That's why scelerisque pretium
-                                       dolor, sit amet vehicula erat pelleque need throw curve balls.
+                                       {{testimonial.testimonial}}.
                                     </p>
-                                    <img src="{% static 'frontend/images/users/user-3.jpg' %}" alt=""
+                                    <img src="{{testimonial.get_photo_url}}" alt=""
                                        class="thumb-lg rounded-circle d-block mx-auto">
-                                    <span class="text-uppercase text-muted fs-14 fw-medium">- John M.
-                                       Sperry</span>
+                                    <span class="text-uppercase text-muted fs-14 fw-medium">-
+                                       {{testimonial.name}}</span>
                                     <ul class="list-inline mb-0 align-self-center">
                                        <li class="list-inline-item"><i class="la la-star text-warning fs-16"></i></li>
                                        <li class="list-inline-item"><i class="la la-star text-warning fs-16 ms-n2"></i>
@@ -388,31 +390,7 @@
                                        </li>
                                     </ul>
                                  </div>
-                                 <div class="carousel-item text-center" data-bs-interval="4000">
-                                    <img src="{% static 'frontend/images/logos/logo-3.svg' %}" alt="" class="my-3"
-                                       height="70">
-                                    <p class="font-secondary fs-22 fst-italic mb-4 px-4">
-                                       I feel confident imposing change on myself. It's a lot more fun
-                                       progressing than looking back. That's why scelerisque pretium
-                                       dolor, sit amet vehicula erat pelleque need throw curve balls.
-                                    </p>
-                                    <img src="{% static 'frontend/images/users/user-5.jpg' %}" alt=""
-                                       class="thumb-lg rounded-circle d-block mx-auto">
-                                    <span class="text-uppercase text-muted fs-14 fw-medium">- Larry J.
-                                       Akins</span>
-                                    <ul class="list-inline mb-0 align-self-center">
-                                       <li class="list-inline-item"><i class="la la-star text-warning fs-16"></i></li>
-                                       <li class="list-inline-item"><i class="la la-star text-warning fs-16 ms-n2"></i>
-                                       </li>
-                                       <li class="list-inline-item"><i class="la la-star text-warning fs-16 ms-n2"></i>
-                                       </li>
-                                       <li class="list-inline-item"><i class="la la-star text-warning fs-16 ms-n2"></i>
-                                       </li>
-                                       <li class="list-inline-item"><i
-                                             class="la la-star-half-o text-warning fs-16 ms-n2"></i>
-                                       </li>
-                                    </ul>
-                                 </div>
+                                 {% endfor %}
                               </div>
                            </div>
                            <button class="carousel-control-prev" type="button" data-bs-target="#demo"
@@ -440,9 +418,11 @@
    </div>
    <!-- end container -->
 </section>
+{% endif %}
 <!-- end what client says -->
 
 <!-- start projects -->
+{% if projects %}
 <section class="section" id="projects">
    <div class="container">
       <div class="row justify-content-center mb-4">
@@ -462,10 +442,14 @@
             <div class="filters-group mb-5">
                <ul class="mb-0 list-unstyled filter-options filter-tab">
                   <li class="list-inline-item position-relative text-dark active" data-group="all">All</li>
-                  <li class="list-inline-item position-relative text-dark" data-group="angular">Angular</li>
-                  <li class="list-inline-item position-relative text-dark" data-group="mongodb">Mongodb</li>
-                  <li class="list-inline-item position-relative text-dark" data-group="bootstrap">Bootstrap
-                  </li>
+                  {% if project_types %}
+                  {% for project_type in project_types %}
+                  {% if project_type.number_of_projects > 0 %}
+                  <li class="list-inline-item position-relative text-dark" data-group="{{project_type.name}}">
+                     {{project_type.name}}</li>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
                </ul>
             </div>
          </div>
@@ -473,134 +457,44 @@
       </div>
       <!--end row-->
       <div class="row d-flex  g-1 justify-content-center" id="grid">
-         <div class="col-lg-4 col-md-6 picture-item" data-groups='["angular", "bootstrap"]'>
+         {% for project in projects %}
+         <div class="col-lg-4 col-md-6 picture-item" data-groups='["{{project.project_type.name}}"]'>
             <div class="card rounded shadow border-0 m-2">
                <div class="card-body p-4 m-2">
                   <div class="media mb-3">
                      <div class="bg-soft-alt-orange d-flex justify-content-center align-items-center thumb-xl  rounded">
-                        <img src="{% static 'frontend/images/logos/Angular.svg' %}" alt="" class="thumb-md">
+                        <img src="{{project.get_main_image_url}}" alt="" class="thumb-md">
                      </div>
                      <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
+                        <h5 class="text-dark fs-18 fw-medium m-0">{{project.name}}t</h5>
+                        <p class="text-muted mb-0 fs-13">{{project.hosted_link}}<a href="{{project.hosted_link}}"><i
                                  class="ti ti-external-link fs-18 text-primary"></i></a></p>
                      </div>
                      <!--end media-body-->
                   </div>
                   <!--end media-->
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Angular</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">React</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Jquery</span>
+                  {% for applied_knowledge in project.applied_knowledge.all %}
+                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">
+                     {{applied_knowledge.name}}
+                  </span>
+                  {% endfor %}
                </div>
                <!-- end card-body -->
             </div>
             <!-- end card -->
          </div>
          <!-- end col -->
-         <div class="col-lg-4 col-md-6 picture-item" data-groups='["bootstrap"]'>
-            <div class="card rounded shadow border-0 m-2">
-               <div class="card-body p-4 m-2">
-                  <div class="media mb-3">
-                     <div class="bg-soft-alt-info d-flex justify-content-center align-items-center thumb-xl  rounded">
-                        <img src="{% static 'frontend/images/logos/bootstrap.svg' %}" alt="" class="thumb-md">
-                     </div>
-                     <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                 class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                     </div>
-                     <!--end media-body-->
-                  </div>
-                  <!--end media-->
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Bootstrap</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Css</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Javascript</span>
-               </div>
-               <!-- end card-body -->
-            </div>
-            <!-- end card -->
-         </div>
-         <!-- end col -->
-         <div class="col-lg-4 col-md-6 picture-item" data-groups='["mongodb", "vue", "angular"]'>
-            <div class="card rounded shadow border-0 m-2">
-               <div class="card-body p-4 m-2">
-                  <div class="media mb-3">
-                     <div
-                        class="bg-soft-alt-success d-flex justify-content-center align-items-center thumb-xl  rounded">
-                        <img src="{% static 'frontend/images/logos/mongodb.svg' %}" alt="" class="thumb-md">
-                     </div>
-                     <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                 class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                     </div>
-                     <!--end media-body-->
-                  </div>
-                  <!--end media-->
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Mongodb</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Javascript</span>
-               </div>
-               <!-- end card-body -->
-            </div>
-            <!-- end card -->
-         </div>
-         <!-- end col -->
-         <div class="col-lg-4 col-md-6 picture-item" data-groups='["vue"]'>
-            <div class="card rounded shadow border-0 m-2">
-               <div class="card-body p-4 m-2">
-                  <div class="media mb-3">
-                     <div
-                        class="bg-soft-alt-success d-flex justify-content-center align-items-center thumb-xl  rounded">
-                        <img src="{% static 'frontend/images/logos/vue.svg' %}" alt="" class="thumb-md">
-                     </div>
-                     <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                 class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                     </div>
-                     <!--end media-body-->
-                  </div>
-                  <!--end media-->
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Vue</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Javascript</span>
-               </div>
-               <!-- end card-body -->
-            </div>
-            <!-- end card -->
-         </div>
-         <!-- end col -->
-         <div class="col-lg-4 col-md-6 picture-item" data-groups='["react", "angular"]'>
-            <div class="card rounded shadow border-0 m-2">
-               <div class="card-body p-4 m-2">
-                  <div class="media mb-3">
-                     <div
-                        class="bg-soft-alt-primary d-flex justify-content-center align-items-center thumb-xl  rounded">
-                        <img src="{% static 'frontend/images/logos/react.svg' %}" alt="" class="thumb-md">
-                     </div>
-                     <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                 class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                     </div>
-                     <!--end media-body-->
-                  </div>
-                  <!--end media-->
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">React</span>
-                  <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">Javascript</span>
-               </div>
-               <!-- end card-body -->
-            </div>
-            <!-- end card -->
-         </div>
-         <!-- end col -->
+         {% endfor %}
       </div>
       <!-- end row -->
    </div>
    <!-- end container -->
 </section>
+{% endif %}
 <!-- end projects -->
 
 <!-- our blogs -->
+{% if blogs %}
 <section class="section" id="blogs">
    <div class="container pb-5">
       <div class="row justify-content-center mb-4">
@@ -616,29 +510,29 @@
       </div>
       <!--end row-->
       <div class="row align-items-center">
+         {% for blog in blogs %}
          <div class="col-lg-4 col-md-6">
             <div class="card shadow">
-               <img src="{% static 'frontend/images/personal/1.jpg' %}" alt="" class="img-fluid rounded-top">
+               <img src="{{blog.get_blog_image_url}}" alt="" class="img-fluid rounded-top">
                <div class="card-body">
 
-                  <a href="blog-detail.html" class="fs-20 my-0 d-block fw-medium">Change the world with small
-                     things</a>
+                  <a href="{% url 'frontend:blog_detail' %}" class="fs-20 my-0 d-block fw-medium">{{blog.title}}</a>
                   <hr class="hr-dashed">
                   <div class="d-flex justify-content-between">
                      <div class="meta-box">
                         <div class="media">
-                           <img src="{% static 'frontend/images/users/user-7.jpg' %}" alt=""
+                           <img src="{{user.get_photo_url}}" alt=""
                               class="thumb-sm rounded-circle me-2 align-self-center">
                            <div class="media-body align-self-center text-truncate">
-                              <h6 class="m-0 fs-14">Charles Woodall</h6>
-                              <p class="mb-0 fs-12 text-muted">14 Feb 2022</p>
+                              <h6 class="m-0 fs-14">{{blog.owner}}</h6>
+                              <p class="mb-0 fs-12 text-muted">{{blog.publish_date|date:"d M Y"}}</p>
                            </div>
                            <!--end media-body-->
                         </div>
                      </div>
                      <!--end meta-box-->
                      <div class="align-self-center">
-                        <a href="blog-detail.html" class="fs-14">Read more <i
+                        <a href="{% url 'frontend:blog_detail' %}" class="fs-14">Read more <i
                               class="ti ti-arrow-right align-self-center"></i></a>
                      </div>
                   </div>
@@ -647,75 +541,14 @@
             </div>
             <!--end card-->
          </div>
-         <!--end col-->
-         <div class="col-lg-4 col-md-6">
-            <div class="card shadow">
-               <img src="{% static 'frontend/images/personal/3.jpg' %}" alt="" class="img-fluid rounded-top">
-               <div class="card-body">
-                  <a href="blog-detail.html" class="fs-20 my-0 d-block fw-medium">With a clean, minimal and
-                     professional look</a>
-                  <hr class="hr-dashed">
-                  <div class="d-flex justify-content-between">
-                     <div class="meta-box">
-                        <div class="media">
-                           <img src="{% static 'frontend/images/users/user-2.jpg' %}" alt=""
-                              class="thumb-sm rounded-circle me-2 align-self-center">
-                           <div class="media-body align-self-center text-truncate">
-                              <h6 class="m-0 fs-14">Jarvis Owen</h6>
-                              <p class="mb-0 fs-12 text-muted">12 Jan 2022</p>
-                           </div>
-                           <!--end media-body-->
-                        </div>
-                     </div>
-                     <!--end meta-box-->
-                     <div class="align-self-center">
-                        <a href="blog-detail.html" class="fs-14">Read more <i
-                              class="ti ti-arrow-right align-self-center"></i></a>
-                     </div>
-                  </div>
-               </div>
-               <!--end card-body-->
-            </div>
-            <!--end card-->
-         </div>
-         <!--end col-->
-
-         <div class="col-lg-4 col-md-6">
-            <div class="card shadow">
-               <img src="{% static 'frontend/images/personal/2.jpg' %}" alt="" class="img-fluid rounded-top">
-               <div class="card-body">
-                  <a href="blog-detail.html" class="fs-20 my-0 d-block fw-medium">With a clean, minimal and
-                     professional look</a>
-                  <hr class="hr-dashed">
-                  <div class="d-flex justify-content-between">
-                     <div class="meta-box">
-                        <div class="media">
-                           <img src="{% static 'frontend/images/users/user-2.jpg' %}" alt=""
-                              class="thumb-sm rounded-circle me-2 align-self-center">
-                           <div class="media-body align-self-center text-truncate">
-                              <h6 class="m-0 fs-14">Jarvis Owen</h6>
-                              <p class="mb-0 fs-12 text-muted">12 Jan 2022</p>
-                           </div>
-                           <!--end media-body-->
-                        </div>
-                     </div>
-                     <!--end meta-box-->
-                     <div class="align-self-center">
-                        <a href="blog-detail.html" class="fs-14">Read more <i
-                              class="ti ti-arrow-right align-self-center"></i></a>
-                     </div>
-                  </div>
-               </div>
-               <!--end card-body-->
-            </div>
-            <!--end card-->
-         </div>
+         {% endfor %}
          <!--end col-->
       </div>
       <!-- end row -->
    </div>
    <!-- end container -->
 </section>
+{% endif %}
 <!--end projects-->
 
 <!-- start contact us -->

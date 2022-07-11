@@ -35,7 +35,7 @@ class Service(models.Model):
     icon = models.ImageField(
         upload_to='uploads/images/service_icons/', blank=True)
     service_description = models.TextField(max_length=100)
-    
+
     def get_icon_url(self):
         if self.icon:
             return self.icon.url
@@ -52,6 +52,9 @@ class Testimonial(models.Model):
         upload_to='uploads/images/testimonial_pics/', blank=True)
     testimonial = models.TextField(max_length=500)
     company_name = models.CharField(max_length=100)
+
+    def get_photo_url(self):
+        return self.photo.url
 
     def __str__(self):
         return self.name
@@ -105,38 +108,34 @@ class Certificate(models.Model):
         return self.name
 
 
-class ProjectImage(models.Model):
-    image = models.ImageField(upload_to='uploads/images/project_pics/')
-    project_name = models.ForeignKey('Project', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'project_images'
-        verbose_name = 'project image'
-        verbose_name_plural = 'project images'
-
-    def image_url(self):
-        return self.image.url
+class ProjectType(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=500, null=True, blank=True)
+    number_of_projects = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.project_name.title
+        return self.name
 
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
+    project_type = models.OneToOneField(
+        ProjectType, on_delete=models.PROTECT, null=True, blank=True)
     description = models.TextField(max_length=500)
+    applied_knowledge = models.ManyToManyField(Knowledge)
     hosted_link = models.CharField(max_length=100, null=True, blank=True)
     year = models.IntegerField()
-    main_image = models.OneToOneField(
-        'ProjectImage', on_delete=models.CASCADE, null=True, blank=True)
+    main_image = models.ImageField(
+        upload_to='uploads/images/project_pics/', blank=True, null=True)
 
     class Meta:
         db_table = 'projects'
         verbose_name = 'project'
         verbose_name_plural = 'projects'
 
-    def main_image_url(self):
-        return self.main_image.image_url()
+    def get_main_image_url(self):
+        return self.main_image.url
 
     def __str__(self):
         return self.name
@@ -144,12 +143,12 @@ class Project(models.Model):
 
 class Resume(models.Model):
     domain = models.CharField(max_length=100)
-    projects = models.ManyToManyField('Project')
+    projects = models.ManyToManyField(Project)
     certificate = models.ManyToManyField(
-        'Certificate')
-    knowledge = models.ManyToManyField('Knowledge')
+        Certificate)
+    knowledge = models.ManyToManyField(Knowledge)
     acquired_skill = models.ManyToManyField(
-        'AcquiredSkill')
+        AcquiredSkill)
 
     def __str__(self):
         return self.domain

@@ -20,6 +20,9 @@ class indexView(View):
         frameworks = FriendlyFrameWork.objects.all()
         services = Service.objects.all()
         schools = School.objects.all()
+        testimonials = Testimonial.objects.all()
+        projects = Project.objects.all()
+        project_types = ProjectType.objects.all()
         context = {
             'user': user,
             'resumes': resumes,
@@ -29,7 +32,10 @@ class indexView(View):
             'categories': categories,
             'frameworks':frameworks,
             'services':services,
-            'schools':schools
+            'schools':schools,
+            'testimonials':testimonials,
+            'projects':projects,
+            'project_types':project_types,
         }
         return render(request, template_name, context)
 
@@ -102,11 +108,11 @@ class ContactView(View):
         return render(request, template_name, context)
 
 class BlogDetailView(View):
-    def get(self, request, pk):
-        template_name = 'website/blog_detail.html'
-        blog = Blog.objects.get(pk=pk)
-        context = {
-            'blog': blog
-        }
-        return render(request, template_name, context)
+    def get(self, request):
+        template_name = 'website/pages/blog-detail.html'
+        # blog = Blog.objects.get(pk=pk)
+        # context = {
+        #     'blog': blog
+        # }
+        return render(request, template_name)
 
