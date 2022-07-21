@@ -15,6 +15,12 @@
          </a>
          <ul id="blogs-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
+               <a href="{% url 'backend:tags' %}">
+                  <i class="bi bi-circle"></i><span>Tags</span>
+               </a>
+               <a href="{% url 'backend:categories' %}">
+                  <i class="bi bi-circle"></i><span>Categories</span>
+               </a>
                <a href="{% url 'backend:blogs' %}">
                   <i class="bi bi-circle"></i><span>Blogs</span>
                </a>

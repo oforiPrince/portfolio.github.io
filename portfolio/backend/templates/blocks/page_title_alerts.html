@@ -1,0 +1,32 @@
+<div class="pagetitle">
+   <div class="row">
+      <div class="col-4">
+         <h1>{% block page_title %}{% endblock page_title %}</h1>
+         <nav>
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="{% url 'backend:dashboard' %}">Home</a></li>
+               <li class="breadcrumb-item active">{% block page_title_ %}{% endblock page_title_ %}</li>
+            </ol>
+         </nav>
+      </div>
+      <div class="col-8">
+         {% if messages %}
+         {% for message in messages %}
+         {% if message.success %}
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-1"></i>
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+         {% else %}
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-octagon me-1"></i>
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+         {% endif %}
+         {% endfor %}
+         {% endif %}
+      </div>
+   </div><!-- End Page Title -->
+</div>
