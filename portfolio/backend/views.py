@@ -63,6 +63,29 @@ class CreateBlogView(View):
             print(form.errors)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+class UpdateBlogView(View):
+    def get(self,request, blog_id):
+        template_name = "pages/update_blog.html"
+        
+        return render(request,template_name)
+    
+    def post(self,request,blog_id):
+        template_name = "pages/blogs.html"
+        
+        return render(request,template_name)
+
+class DeleteBlogView(View):
+    def get(self, request, blog_id):
+        template_name = 'pages/blogs.html'
+        blog = Blog.objects.get(pk=blog_id)
+        blog.delete()
+        blogs = Blog.objects.all().order_by('-date_created')
+        context = {
+            'blogs': blogs,
+            'page_title': 'Blogs',
+        }
+        messages.success(request, "Blog deleted successfully")
+        return render(request, template_name, context)
 
 class CategoriesView(View):
     def get(self, request):
