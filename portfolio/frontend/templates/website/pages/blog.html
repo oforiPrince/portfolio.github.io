@@ -34,7 +34,7 @@
                     <img src="{{blog.get_blog_image_url}}" alt="" class="img-fluid rounded-top">
                     <div class="card-body">
 
-                        <a href="{% url 'frontend:blog_detail' %}"
+                        <a href="{% url 'frontend:blog_detail' blog.id %}"
                             class="fs-20 my-0 d-block fw-medium">{{blog.title}}</a>
                         <hr class="hr-dashed">
                         <div class="d-flex justify-content-between">
@@ -51,7 +51,7 @@
                             </div>
                             <!--end meta-box-->
                             <div class="align-self-center">
-                                <a href="{% url 'frontend:blog_detail' %}" class="fs-14">Read more <i
+                                <a href="{% url 'frontend:blog_detail' blog.id %}" class="fs-14">Read more <i
                                         class="ti ti-arrow-right align-self-center"></i></a>
                             </div>
                         </div>

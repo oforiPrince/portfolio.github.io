@@ -108,11 +108,14 @@ class ContactView(View):
         return render(request, template_name, context)
 
 class BlogDetailView(View):
-    def get(self, request):
+    def get(self, request, id):
         template_name = 'website/pages/blog-detail.html'
-        # blog = Blog.objects.get(pk=pk)
-        # context = {
-        #     'blog': blog
-        # }
-        return render(request, template_name)
+        blog = Blog.objects.get(pk=id)
+        latest_blogs = Blog.objects.all().order_by('-id')[:4]
+        # print(latest_blogs)
+        context = {
+            'blog': blog,
+            'latest_blogs': latest_blogs
+        }
+        return render(request, template_name, context)
 
