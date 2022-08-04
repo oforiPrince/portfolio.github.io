@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- start hero -->
-<section class="hero-one position-relative bg-black" id="about"
+<section class="hero-one position-relative bg-black" id="projects"
     style="background-image: url(images/personal/main-bg.png); background-size: cover; background-position: center center;">
     <div class="container">
         <div class="row align-items-center justify-content-center py-100">
@@ -32,91 +32,50 @@
                 <div class="filters-group mb-5">
                     <ul class="mb-0 list-unstyled filter-options filter-tab">
                         <li class="list-inline-item position-relative text-dark active" data-group="all">All</li>
-                        <li class="list-inline-item position-relative text-dark" data-group="angular">Angular</li>
-                        <li class="list-inline-item position-relative text-dark" data-group="mongodb">Mongodb</li>
-                        <li class="list-inline-item position-relative text-dark" data-group="bootstrap">Bootstrap</li>
+                        {% if project_types %}
+                        {% for project_type in project_types %}
+                        {% if project_type.number_of_projects > 0 %}
+                        <li class="list-inline-item position-relative text-dark" data-group="{{project_type.name}}">
+                            {{project_type.name}}</li>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
-            <!--end col-->
         </div>
-        <!--end row-->
+        <!--end col-->
         <div class="row d-flex  g-1 justify-content-center" id="grid">
-            <div class="col-lg-4 col-md-6 picture-item" data-groups='["angular", "bootstrap"]'>
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 picture-item" data-groups='["{{project.project_type.name}}"]'>
                 <div class="card rounded shadow border-0 m-2">
-                    <div class="text-center bg-soft-alt-danger py-5 rounded">
-                        <img src="{% static 'frontend/images/logos/Angular.svg' %}" alt="" class="thumb-xl rounded">
-                    </div>
                     <div class="card-body p-4 m-2">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Farmer Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                    class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                    </div>
+                        <div class="media mb-3">
+                            <div
+                                class="bg-soft-alt-orange d-flex justify-content-center align-items-center thumb-xl  rounded">
+                                <img src="{{project.get_main_image_url}}" alt="" class="thumb-md">
+                            </div>
+                            <div class="media-body ms-3 align-self-center">
+                                <h5 class="text-dark fs-18 fw-medium m-0">{{project.name}}</h5>
+                                <p class="text-muted mb-0 fs-13">{{project.hosted_link}}<a
+                                        href="{{project.hosted_link}}"><i
+                                            class="ti ti-external-link fs-18 text-primary"></i></a></p>
+                            </div>
+                            <!--end media-body-->
+                        </div>
+                        <!--end media-->
+                        {% for applied_knowledge in project.applied_knowledge.all %}
+                        <span class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-12 text-uppercase">
+                            {{applied_knowledge.name}}
+                        </span>
+                        {% endfor %}
+                </div>
                     <!-- end card-body -->
                 </div>
                 <!-- end card -->
             </div>
             <!-- end col -->
-            <div class="col-lg-4 col-md-6 picture-item" data-groups='["bootstrap"]'>
-                <div class="card rounded shadow border-0 m-2">
-                    <div class="text-center bg-soft-alt-info py-5 rounded">
-                        <img src="{% static 'frontend/images/logos/bootstrap.svg' %}" alt="" class="thumb-xl rounded">
-                    </div>
-                    <div class="card-body p-4 m-2">
-                        <h5 class="text-dark fs-18 fw-medium m-0">ID Scan Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                    class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                    </div>
-                    <!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-            <div class="col-lg-4 col-md-6 picture-item" data-groups='["mongodb", "vue", "angular"]'>
-                <div class="card rounded shadow border-0 m-2">
-                    <div class="text-center bg-soft-alt-success py-5 rounded">
-                        <img src="{% static 'frontend/images/logos/mongodb.svg' %}" alt="" class="thumb-xl rounded">
-                    </div>
-                    <div class="card-body p-4 m-2">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Auto Drive Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                    class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                    </div>
-                    <!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-            <div class="col-lg-4 col-md-6 picture-item" data-groups='["vue"]'>
-                <div class="card rounded shadow border-0 m-2">
-                    <div class="text-center bg-soft-alt-success py-5 rounded">
-                        <img src="{% static 'frontend/images/logos/vue.svg' %}" alt="" class="thumb-xl rounded">
-                    </div>
-                    <div class="card-body p-4 m-2">
-                        <h5 class="text-dark fs-18 fw-medium m-0">Health Application</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                    class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                    </div>
-                    <!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-            <div class="col-lg-4 col-md-6 picture-item" data-groups='["react", "angular"]'>
-                <div class="card rounded shadow border-0 m-2">
-                    <div class="text-center bg-soft-alt-primary py-5 rounded">
-                        <img src="{% static 'frontend/images/logos/react.svg' %}" alt="" class="thumb-xl rounded">
-                    </div>
-                    <div class="card-body p-4 m-2">
-                        <h5 class="text-dark fs-18 fw-medium m-0">eCommerce Project</h5>
-                        <p class="text-muted mb-0 fs-13">htpps://abcd-Example.com <a href=""><i
-                                    class="ti ti-external-link fs-18 text-primary"></i></a></p>
-                    </div>
-                    <!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
+            {% endfor %}
         </div>
         <!-- end row -->
     </div>

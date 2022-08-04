@@ -87,9 +87,11 @@ class ProjectsView(View):
         template_name = 'website/pages/projects.html'
         user = User.objects.all().first()
         projects = Project.objects.all()
+        project_types = ProjectType.objects.all()
         context = {
             'user': user,
-            'projects': projects
+            'projects': projects,
+            'project_types': project_types,
         }
         return render(request, template_name, context)
     
