@@ -11,20 +11,8 @@
       <div class="row align-items-center justify-content-center">
 
          <div class="col-lg-7 text-center px-0 px-xl-4 mt-5 mt-lg-0 pt-5 pt-lg-0">
-            <h5 class="d-inline-block py-1 px-3 rounded text-muted font-secondary">Hi, I'm {{user.fullname}}</h5>
+            <h5 class="d-inline-block py-1 px-3 rounded text-muted font-secondary">Hi, {{user.fullname}}</h5>
             <h4 class="hero-title mb-4 font-secondary fo">I'm a
-               <!-- <div class="position-relative d-inline-block" style="margin-bottom: -20px;" data-delay="2200" data-words>
-                  &nbsp;
-                  {% if user.careers %}
-                  <div class="text-anim-items">
-                     {% for career in user.careers.all  %}
-                     <span class="text-anim-item px-2"><span>{{career.title}}</span></span>
-                     {% endfor %}
-                  </div>
-                  <span class="anim-line bg-orange"></span>
-                  {% endif %}
-                  </span>
-               </div> -->
                Fullstack Developer
             </h4>
             <span class="wrap"></span>
@@ -52,14 +40,13 @@
    </div>
 </div>
 <!-- start about -->
-{% if user.carrier_summary and user.dob and user.spoken_languages and user.programming_language and frameworks%}
 <section class="section" id="about">
    <div class="container">
       <div class="row align-items-center">
-         {% if user.carrier_summary %}
+         {% if user.career_summary %}
          <div class="col-lg-6 align-self-center">
             <h5 class="fs-24 text-dark fw-medium"><mark>Personal Details</mark></h5>
-            <h4 class="fw-normal lh-base text-gray-700 mb-4 fs-20">{{user.carrier_summary}}
+            <h4 class="fw-normal lh-base text-gray-700 mb-4 fs-20">{{user.career_summary}}
             </h4>
             <div class="social">
                <a href="#">
@@ -91,7 +78,7 @@
                   <span class="personal-detail-title">Spoken Languages</span>
                   <span class="personal-detail-info">
                      {% for lang in user.spoken_languages.all %}
-                     {{lang.name}}
+                     {{lang.name}},
                      {% endfor %}
                   </span>
                </p>
@@ -107,7 +94,7 @@
                   <span class="personal-detail-title">Programming Languages</span>
                   <span class="personal-detail-info">
                      {% for lang in user.programming_languages.all %}
-                     {{lang.name}}
+                     {{lang.name}},
                      {% endfor %}
                   </span>
                </p>
@@ -143,7 +130,6 @@
    <!-- end container -->
 </section>
 <!-- end about -->
-{% endif %}
 <!-- start services -->
 {% if services %}
 <section class="section bg-gradient-light-white" id="services">
@@ -245,9 +231,13 @@
                               <h2 class="accordion-header" id="prime">
                                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#Education_{{school.id}}" aria-expanded="false">
-                                    MSc IT Master Degree
+                                    {{school.degree}}
                                     <span class="fw-medium text-primary ms-auto fs-14">{{school.entry_year}} -
+                                       {% if school.graduation_year %}
                                        {{school.graduation_year}}</span>
+                                       {% else %}
+                                       Present</span>
+                                       {% endif %}
                                  </button>
                               </h2>
                               <div id="Education_{{school.id}}"
@@ -256,7 +246,7 @@
                                  <div class="accordion-body">
                                     <p class="text-muted mb-3">{{school.short_information}}</p>
                                     </p>
-                                    <p class="fw-medium">{{school.location}}</p>
+                                    <p class="fw-medium">{{school.name}}, {{school.location}}</p>
                                  </div>
                               </div>
                            </div>
@@ -273,7 +263,7 @@
                {% endif %}
             </div>
             <!-- end row -->
-            {% if resumes %}
+            {% if projects %}
             <hr class="hr-dashed">
             <div class="row g-0">
                <div class="col-lg-4 col-md-6">
@@ -296,30 +286,28 @@
                   <div class="card rounded bg-white  h-100 border-0">
                      <div class="card-body p-0">
                         <div class="accordion accordion-flush" id="Experience_accordion">
-                           {% for resume in resumes %}
+                           {% for project in projects %}
                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="resume_{{resume.id}}">
+                              <h2 class="accordion-header" id="resume_{{project.id}}">
                                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#Experience_{{resume.id}}" aria-expanded="false">
-                                    ABC themes - Web Design IT Company
-                                    <span class="fw-medium text-primary ms-auto fs-14">2020 -
-                                       2021</span>
+                                    data-bs-target="#Experience_{{project.id}}" aria-expanded="false">
+                                    {{project.name}}
+                                    <span class="fw-medium text-primary ms-auto fs-14">{{project.year}}</span>
                                  </button>
                               </h2>
-                              <div id="Experience_{{resume.id}}"
+                              <div id="Experience_{{project.id}}"
                                  class="accordion-collapse collapse {% if forloop.counter == 1 %}show{%endif%}"
-                                 aria-labelledby="resume_{{resume.id}}" data-bs-parent="#Experience_accordion">
+                                 aria-labelledby="project{{project.id}}" data-bs-parent="#Experience_accordion">
                                  <div class="accordion-body">
-                                    <p class="text-muted mb-1">- Delivered quality code by applying the
-                                       best development practices</p>
-                                    <p class="fw-medium">A-000 Chambers Street, Suite z-701 New York, NY
-                                       10007, United States</p>
+                                    <p class="text-muted mb-1">{{project.description}}</p>
+                                    {% for knowledge in project.applied_knowledge.all %} 
                                     <span
-                                       class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">Angular</span>
-                                    <span
+                                    class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">{{knowledge.name}}</span>
+                                    {% endfor %}
+                                    <!-- <span
                                        class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">React</span>
                                     <span
-                                       class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">Python</span>
+                                       class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">Python</span> -->
                                  </div>
                               </div>
                            </div>
@@ -468,7 +456,7 @@
                         <img src="{{project.get_main_image_url}}" alt="" class="thumb-md">
                      </div>
                      <div class="media-body ms-3 align-self-center">
-                        <h5 class="text-dark fs-18 fw-medium m-0">{{project.name}}t</h5>
+                        <h5 class="text-dark fs-18 fw-medium m-0">{{project.name}}</h5>
                         <p class="text-muted mb-0 fs-13">{{project.hosted_link}}<a href="{{project.hosted_link}}"><i
                                  class="ti ti-external-link fs-18 text-primary"></i></a></p>
                      </div>
@@ -586,7 +574,7 @@
                               <!-- end col -->
                               <div class="col-md-6 mb-3">
                                  <label class="fw-medium form-label  fs-16" for="number">Contact</label>
-                                 <input type="text" class="form-control" placeholder="+00 1234 5678 90" id="number" />
+                                 <input type="text" class="form-control" placeholder="Your phone number" id="number" />
                               </div>
                               <!-- end col -->
                               <div class="col-12 mb-3">
@@ -614,7 +602,7 @@
                               <i class="ti ti-phone fs-22"></i>
                            </div>
                            <div class="align-self-center ms-3">
-                              <span class="d-block lh-1">+1 234 567 89</span>
+                              <span class="d-block lh-1">{{user.phone}}</span>
                               <span class="text-muted fs-14 mt-n2">9:00am to 7:00pm</span>
                            </div>
                         </div>
@@ -624,7 +612,7 @@
                               <i class="ti ti-mail fs-22"></i>
                            </div>
                            <div class="align-self-center ms-3">
-                              <span class="d-block lh-1">example@example.com</span>
+                              <span class="d-block lh-1">{{user.email}}</span>
                               <span class="text-muted fs-14 mt-n2">Monday to Saturday</span>
                            </div>
                         </div>

@@ -2,7 +2,7 @@
 <!-- start navbar -->
 <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
    <div class="container">
-      <a href="index.html" class="navbar-brand">
+      <a href="{% url 'frontend:index' %}" class="navbar-brand">
          <img src="{% static 'frontend/images/logo-sm.png' %}" class="logo-sm" alt="" height="24" />
          <img src="{% static 'frontend/images/logo-light.png' %}" class="logo-light" alt="" height="16" />
          <img src="{% static 'frontend/images/logo-dark.png' %}" class="logo-dark" alt="" height="16" />
@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav mx-auto navbar-center mt-lg-0 mt-2">
             <li class="nav-item">
-               <a class="nav-link {% block home_active %}active{%endblock%}" href="{% url 'frontend:index' %}">Home</a>
+               <a class="nav-link {% block home_active %}active{% endblock %}" href="{% url 'frontend:index' %}">Home</a>
             </li>
             <!--end nav-item-->
             <li class="nav-item">
@@ -37,7 +37,7 @@
             </li>
             <!--end nav-item-->
             <li class="nav-item">
-               <a class="nav-link {% block blog_active %}{% endblock blog_active %}" href="{% url 'frontend:blog' %}">Blogs</a>
+               <a class="nav-link {% block blog_active %}{% endblock blog_active %}" href="{% url 'frontend:blogs' %}">Blogs</a>
             </li>
             <!--end nav-item-->
             <li class="nav-item">

@@ -17,7 +17,7 @@ class School(models.Model):
     degree = models.CharField(max_length=100)
     major = models.CharField(max_length=100)
     entry_year = models.IntegerField()
-    graduation_year = models.IntegerField()
+    graduation_year = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name

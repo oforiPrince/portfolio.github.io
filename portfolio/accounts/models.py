@@ -18,7 +18,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         upload_to='uploads/profile_pics/', blank=True)
     location = models.CharField(max_length=100, blank=True)
     careers = models.ManyToManyField(Career)
-    carrier_summary = models.TextField(max_length=500)
+    career_summary = models.TextField(max_length=500)
 
     # Django stuff for authentication
     USERNAME_FIELD = "username"

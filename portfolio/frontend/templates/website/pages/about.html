@@ -4,6 +4,7 @@
 {% block content %}
 
 <!-- start hero -->
+{% if user %}
 <section class="hero-one position-relative bg-black" id="about"
     style="background-image: url('static/frontend/images/personal/main-bg.png'); background-size: cover; background-position: center center;">
     <div class="container">
@@ -35,26 +36,29 @@
             <!--end col-->
             <div class="col-lg-6 ms-auto align-self-center">
                 <h5 class="fs-24 text-dark fw-medium mb-3"><mark>Personal Details</mark></h5>
-                <h4 class="fw-normal lh-base text-gray-700 mb-5 fs-20">It is a long established fact that a reader
-                    will be distracted by the readable content of a page when looking at its layout.
+                <h4 class="fw-normal lh-base text-gray-700 mb-5 fs-20">{{user.career_summary}}.
                 </h4>
 
                 <div class="mb-5 mb-lg-0">
                     <p class="mb-2">
                         <span class="personal-detail-title">Date of birth</span>
-                        <span class="personal-detail-info">06 june 1989</span>
+                        <span class="personal-detail-info">{{user.dob|date:"d M D"}}</span>
                     </p>
                     <p class="mb-2">
                         <span class="personal-detail-title">Spoken Langages</span>
-                        <span class="personal-detail-info">English - French - German</span>
+                        <span class="personal-detail-info">{% for lang in user.spoken_languages.all %}
+                            {{lang.name}}
+                            {% endfor %}</span>
                     </p>
                     <p class="mb-2">
                         <span class="personal-detail-title">Nationality</span>
-                        <span class="personal-detail-info">USA</span>
+                        <span class="personal-detail-info">{{user.nationality}}</span>
                     </p>
                     <p class="mb-2">
                         <span class="personal-detail-title">Interest</span>
-                        <span class="personal-detail-info">Music, Reading, journey</span>
+                        <span class="personal-detail-info">{% for lang in user.programming_languages.all %}
+                            {{lang.name}},
+                            {% endfor %}</span>
                     </p>
                 </div>
                 <div class="social mt-5">
@@ -72,108 +76,28 @@
                     </a>
                 </div>
             </div>
-            <!--end col-->
+            {% if frameworks %}
             <div class="col-12 mt-5">
                 <div class="d-flex flex-wrap justify-content-center  mt-4 mt-md-5">
+                    {% for framework in frameworks %}
                     <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
                         <div class="d-flex align-items-center">
                             <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/android.svg' %}" alt="" class="" height="34">
+                                <img src="{{framework.get_icon_url}}" alt="" class="" height="34">
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Android</h6>
-                                <p class="text-muted mb-0 fs-12">2 Year Experience</p>
+                                <h6 class="mb-0 fw-medium text-gray-700">{{framework.name}}</h6>
+                                <p class="text-muted mb-0 fs-12">{{framework.years_of_experience}} Year(s) Experience
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/Angular.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Angular</h6>
-                                <p class="text-muted mb-0 fs-12">1 Year Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/bootstrap.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Bootstrap</h6>
-                                <p class="text-muted mb-0 fs-12">3 Year Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/vue.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Vue</h6>
-                                <p class="text-muted mb-0 fs-12">2 Year Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/react.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">React</h6>
-                                <p class="text-muted mb-0 fs-12">8 Months Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/mongodb.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Mongodb</h6>
-                                <p class="text-muted mb-0 fs-12">3 Months Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/laravel.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Laravel</h6>
-                                <p class="text-muted mb-0 fs-12">1 Year Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/div-->
-                    <div class="mx-3 ms-sm-0 ms-sm-0 mb-3 card-bg rounded p-1 pe-3 p-md-3 pe-md-4 shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <div class="thumb-md d-flex flex-wrap justify-content-center align-items-center">
-                                <img src="{% static 'frontend/images/logos/nodejs-icon.svg' %}" alt="" class="" height="34">
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-0 fw-medium text-gray-700">Node.js</h6>
-                                <p class="text-muted mb-0 fs-12">10 Months Experience</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <!--/div-->
                 </div>
                 <!-- End div -->
             </div>
+            {% endif %}
             <!-- End Col -->
         </div>
         <!--end row-->
@@ -181,18 +105,25 @@
     <!-- end container -->
 </section>
 <!-- end about -->
+{% endif %}
 
 <!-- start resume -->
-<section class="section">
+{% if resumes or schools %}
+<section class="section" id="resume">
     <div class="container">
         <div class="row justify-content-center mb-4">
             <div class="col-12 col-md-10 col-lg-7 text-center">
                 <span class="badge badge-lg rounded bg-soft-alt-success fw-normal fs-13 text-uppercase">Life
                     Time</span>
-                <h2 class="fs-2 fw-medium lh-1 text-dark my-3 position-relative z-i-2">Education & Experience</h2>
-                <div class="bg-text">
-                    <h1 class="fw-bold p-0">Resume</h1>
-                </div>
+                <h2 class="fs-2 fw-medium lh-1 text-dark my-3">
+                    {% if schools and resumes %}
+                    Education & Experience
+                    {% elif schools %}
+                    Education
+                    {% elif resumes %}
+                    Experience
+                    {% endif %}
+                </h2>
                 <p class="text-gray-700 fs-18 fs-lg mb-4 mb-md-5 lh-lg">
                     We craft digital, graphic and dimensional thinking, to create category leading brand experiences
                     that have meaning .
@@ -203,75 +134,128 @@
         <!--end row-->
         <div class="row">
             <div class="col-12">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="main-timeline">
-                            <div class="timeline">
-                                <a href="#" class="timeline-content">
-                                    <div class="timeline-icon">
-                                        <i class="ti ti-trophy"></i>
-                                    </div>
-                                    <div class="inner-content">
-                                        <h3 class="title">GHI Themes - Web & App IT Company</h3>
-                                        <p class="description">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                                            malesuada tellus lorem, et condimentum neque commodo
-                                        </p>
-                                    </div>
-                                    <div class="timeline-year"><span>2019-22</span></div>
-                                </a>
+                <div class="row g-0">
+                    {% if schools %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card rounded bg-light h-100 border-0">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="mx-auto text-center">
+                                    <img src="{% static 'frontend/images/personal/school.png' %}" alt=""
+                                        class="vector-dark" height="150">
+                                    <img src="{% static 'frontend/images/personal/school-light.png' %}" alt=""
+                                        class="vector-light" height="150">
+                                    <h5 class="text-dark fs-22 fw-medium my-2">Education</h5>
+                                </div>
                             </div>
-                            <div class="timeline">
-                                <a href="#" class="timeline-content">
-                                    <div class="timeline-icon">
-                                        <i class="ti ti-users"></i>
-                                    </div>
-                                    <div class="inner-content">
-                                        <h3 class="title">ABC themes - Web Design IT Company</h3>
-                                        <p class="description">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                                            malesuada tellus lorem, et condimentum neque commodo
-                                        </p>
-                                    </div>
-                                    <div class="timeline-year"><span>2014-18</span></div>
-                                </a>
-                            </div>
-                            <div class="timeline">
-                                <a href="#" class="timeline-content">
-                                    <div class="timeline-icon">
-                                        <i class="ti ti-school"></i>
-                                    </div>
-                                    <div class="inner-content">
-                                        <h3 class="title">MSc IT Master Degree</h3>
-                                        <p class="description">
-                                            Harvard University is an educational institution that offers graduate,
-                                            professional, and research programs in the fields of and public health.
-                                        </p>
-                                    </div>
-                                    <div class="timeline-year"><span>2012-13</span></div>
-                                </a>
-                            </div>
-                            <div class="timeline">
-                                <a href="#" class="timeline-content">
-                                    <div class="timeline-icon">
-                                        <i class="ti ti-building"></i>
-                                    </div>
-                                    <div class="inner-content">
-                                        <h3 class="title">High / Higher secondary school</h3>
-                                        <p class="description">
-                                            Princeton University is an educational institution that offers graduate,
-                                            professional, and research programs in the fields of and public health.
-                                        </p>
-                                    </div>
-                                    <div class="timeline-year"><span>2007-08</span></div>
-                                </a>
-                            </div>
+                            <!-- end card-body -->
                         </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-8 col-md-6">
+                        <div class="card rounded bg-white  h-100 border-0">
+                            <div class="card-body p-0">
+                                <div class="accordion accordion-flush" id="Education_accordion">
+                                    {% for school in schools %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="prime">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#Education_{{school.id}}" aria-expanded="false">
+                                                MSc IT Master Degree
+                                                <span class="fw-medium text-primary ms-auto fs-14">{{school.entry_year}}
+                                                    -
+                                                    {% if school.graduation_year %}
+                                                    {{school.graduation_year}}</span>
+                                                    {% endif %}
+                                            </button>
+                                        </h2>
+                                        <div id="Education_{{school.id}}"
+                                            class="accordion-collapse collapse {% if forloop.counter == 1 %}show{%endif%}"
+                                            aria-labelledby="prim" data-bs-parent="#Education_accordion">
+                                            <div class="accordion-body">
+                                                <p class="text-muted mb-3">{{school.short_information}}</p>
+                                                </p>
+                                                <p class="fw-medium">{{school.name}}, {{school.location}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!--end accordion-item-->
+                                </div>
+                                <!--end accordion-->
+                            </div>
+                            <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                    {% endif %}
+                </div>
+                <!-- end row -->
+                {% if resumes %}
+                <hr class="hr-dashed">
+                <div class="row g-0">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card rounded bg-light h-100 border-0">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="mx-auto text-center">
+                                    <img src="{% static 'frontend/images/personal/job.png' %}" alt=""
+                                        class="vector-dark" height="150">
+                                    <img src="{% static 'frontend/images/personal/job-light.png' %}" alt=""
+                                        class="vector-light" height="150">
+                                    <h5 class="text-dark fs-22 fw-medium my-2">Experience</h5>
+                                </div>
+                            </div>
+                            <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-8 col-md-6">
+                        <div class="card rounded bg-white  h-100 border-0">
+                            <div class="card-body p-0">
+                                <div class="accordion accordion-flush" id="Experience_accordion">
+                                    {% for resume in resumes %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="resume_{{resume.id}}">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#Experience_{{resume.id}}" aria-expanded="false">
+                                                ABC themes - Web Design IT Company
+                                                <span class="fw-medium text-primary ms-auto fs-14">2020 -
+                                                    2021</span>
+                                            </button>
+                                        </h2>
+                                        <div id="Experience_{{resume.id}}"
+                                            class="accordion-collapse collapse {% if forloop.counter == 1 %}show{%endif%}"
+                                            aria-labelledby="resume_{{resume.id}}"
+                                            data-bs-parent="#Experience_accordion">
+                                            <div class="accordion-body">
+                                                <p class="text-muted mb-1">- Delivered quality code by applying the
+                                                    best development practices</p>
+                                                <p class="fw-medium">A-000 Chambers Street, Suite z-701 New York, NY
+                                                    10007, United States</p>
+                                                <span
+                                                    class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">Angular</span>
+                                                <span
+                                                    class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">React</span>
+                                                <span
+                                                    class="badge badge-lg rounded bg-soft-alt-info fw-normal fs-13 text-uppercase mt-2">Python</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!--end accordion-item-->
+                                </div>
+                                <!--end accordion-->
+                            </div>
+                            <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
                     </div>
                     <!-- end col -->
                 </div>
-                <!-- end row -->
-
+                {% endif %}
+                <!--end row-->
             </div>
             <!-- end col -->
         </div>
@@ -279,6 +263,7 @@
     </div>
     <!-- end container -->
 </section>
+{% endif %}
 <!-- end resume -->
-  
+
 {% endblock content %}

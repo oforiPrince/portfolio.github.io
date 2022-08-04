@@ -54,8 +54,14 @@ class AboutView(View):
     def get(self, request):
         template_name = 'website/pages/about.html'
         user = User.objects.all().first()
+        frameworks = FriendlyFrameWork.objects.all()
+        schools = School.objects.all()
+        projects = Project.objects.all()
         context = {
-            'user': user
+            'user': user,
+            'frameworks':frameworks,
+            'schools':schools,
+            'projects':projects,
         }
         return render(request, template_name, context)
     
