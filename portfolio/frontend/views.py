@@ -69,8 +69,10 @@ class ServicesView(View):
     def get(self, request):
         template_name = 'website/pages/services.html'
         user = User.objects.all().first()
+        services = Service.objects.all()
         context = {
-            'user': user
+            'user': user,
+            'services':services,
         }
         return render(request, template_name, context)
 
