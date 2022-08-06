@@ -1,4 +1,5 @@
 {% extends "website/base/base.html" %}
+{% block title %}Blog{% endblock title %}
 {% load static %}
 
 {% block content %}
@@ -35,10 +36,10 @@
                         <div class="mb-5 text-center">
                             <p class="text-muted fw-semibold fs-18">{{blog.publish_date|date:"d M, Y"}}</p>
                             <h3 class="my-3 fs-28 d-block fw-medium text-dark">{{blog.title}}</h3>
-                            <span class="badge px-3 py-2 bg-light text-dark fw-semibold mt-3 fs-13">Minting</span>
-                            <span class="badge px-3 py-2 bg-light text-dark fw-semibold mt-3 fs-13">NFTs</span>
-                            <span class="badge px-3 py-2 bg-light text-dark fw-semibold mt-3 fs-13">Art</span>
-                            <span class="badge px-3 py-2 bg-light text-dark fw-semibold mt-3 fs-13">Music</span>
+                            {% for tag in blog.tags.all %}
+                            <span class="badge px-3 py-2 bg-light text-dark fw-semibold mt-3 fs-13">{{tag.name}}</span>
+                            {% endfor %}
+                            
                         </div>
                         <div class="my-5">
                             <div class="text-muted fs-16">
@@ -47,7 +48,7 @@
                         </div>
                         <div class="mb-5">
                             <h3 class="mt-3 fs-24 d-block fw-medium text-dark">Latest Blog Posts</h3>
-                            <p class="text-muted fw-semibold fs-14">26 march 2022</p>
+                            <p class="text-muted fw-semibold fs-14">{{blog.publish_date|date:"d M, Y"}}</p>
                             <div class="row">
                                 <div class="col-12">
                                     <div
@@ -55,8 +56,8 @@
                                         {% for latest_blog in latest_blogs %}
                                         {% if latest_blog.id != blog.id %}
                                         <div class="col">
-                                            <a href="#" class="d-block bg-card shadow p-2 rounded catagories-box">
-                                                <img src="{% static 'frontend/images/personal/6.jpg' %}" alt=""
+                                            <a href="{% url 'frontend:blog_detail' latest_blog.id %}" class="d-block bg-card shadow p-2 rounded catagories-box">
+                                                <img src="{{latest_blog.get_blog_image_url}}" alt=""
                                                     class="img-fluid rounded mb-2">
                                                 <h3 class="fs-15 m-0 fw-medium">{{latest_blog.title|truncatewords:10}}</h3>
                                             </a>

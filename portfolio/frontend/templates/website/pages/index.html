@@ -1,5 +1,6 @@
 {% extends "website/base/base.html" %}
 {% block home_active %}active{% endblock%}
+{% block title %}Home{% endblock title %}
 {% load static %}
 {% block content %}
 <!-- start hero -->
@@ -11,14 +12,16 @@
       <div class="row align-items-center justify-content-center">
 
          <div class="col-lg-7 text-center px-0 px-xl-4 mt-5 mt-lg-0 pt-5 pt-lg-0">
-            <h5 class="d-inline-block py-1 px-3 rounded text-muted font-secondary">Hi, {{user.fullname}}</h5>
+            <h5 class="d-inline-block py-1 px-3 rounded text-muted font-secondary">Hi, I'm {{user.fullname}}</h5>
             <h4 class="hero-title mb-4 font-secondary fo">I'm a
                Fullstack Developer
             </h4>
             <span class="wrap"></span>
             <div class="mb-5 mb-lg-0">
                <div class="d-inline-block">
-                  <a href="#" class="btn btn-primary">Download CV</a>
+                  {% if user.cv %} 
+                  <a href="{{user.get_cv_url}}" class="btn btn-primary" download>Download CV</a>
+                  {% endif %}
                </div>
             </div>
          </div>

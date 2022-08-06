@@ -19,6 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     location = models.CharField(max_length=100, blank=True)
     careers = models.ManyToManyField(Career)
     career_summary = models.TextField(max_length=500)
+    cv = models.FileField(upload_to='uploads/cv/', blank=True)
 
     # Django stuff for authentication
     USERNAME_FIELD = "username"
@@ -26,11 +27,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    
+    def get_cv_url(self):
+        return self.cv.url
 
     def get_photo_url(self):
         if self.photo:
-            # return self.photo.url
-            return '/static/frontend/images/personal/1.png'
+            return self.photo.url
         else:
             return '/static/frontend/images/personal/1.png'
 
