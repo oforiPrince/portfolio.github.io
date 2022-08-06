@@ -36,7 +36,11 @@
             <li>
                <a href="#">
                   <i class="bi bi-circle"></i><span>Category</span>
+               </a>
+               <a href="#">
                   <i class="bi bi-circle"></i><span>Knowledge</span>
+               </a>
+               <a href="#">
                   <i class="bi bi-circle"></i><span>Projects</span>
                </a>
             </li>
@@ -82,16 +86,9 @@
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-         <a class="nav-link collapsed" href="#">
-            <i class="bi bi-card-list"></i>
-            <span>Register</span>
-         </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-         <a class="nav-link collapsed" href="#">
+         <a class="nav-link collapsed" href="{% url 'accounts:logout' %}">
             <i class="bi bi-box-arrow-in-right"></i>
-            <span>Login</span>
+            <span>Logout</span>
          </a>
       </li><!-- End Login Page Nav -->
 

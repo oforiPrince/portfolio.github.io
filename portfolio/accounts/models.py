@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import AccountManager
-from backend.models import Career,SpokenLanguage,Language
+from backend.models import Career,SpokenLanguage,Language, Social
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -18,8 +18,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         upload_to='uploads/profile_pics/', blank=True)
     location = models.CharField(max_length=100, blank=True)
     careers = models.ManyToManyField(Career)
-    career_summary = models.TextField(max_length=500)
+    about = models.TextField(max_length=500)
+    company = models.CharField(max_length=100, blank=True, null=True)
     cv = models.FileField(upload_to='uploads/cv/', blank=True)
+    social = models.ManyToManyField(Social, blank=True)
 
     # Django stuff for authentication
     USERNAME_FIELD = "username"

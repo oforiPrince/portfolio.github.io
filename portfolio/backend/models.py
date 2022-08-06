@@ -25,9 +25,10 @@ class School(models.Model):
 
 class Social(models.Model):
     name = models.CharField(max_length=100)
-    icon = models.ImageField(
-        upload_to='uploads/images/social_icons/', blank=True)
     url = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
 
 
 class Service(models.Model):

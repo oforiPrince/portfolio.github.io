@@ -24,8 +24,58 @@ class ProfileView(View):
             'page_title': 'Profile',
         }
         return render(request, template_name,context)
+    
+    def post(self, request):
+        template_name = 'pages/profile.html'
+        user = request.user
+        user.full_name = request.POST.get('fullName')
+        user.about = request.POST.get('about')
+        user.company = request.POST.get('company')
+        user.nationality = request.POST.get('country')
+        user.location = request.POST.get('address')
+        user.phone = request.POST.get('phone')
+        user.email = request.POST.get('email')
+        user.save()
+        messages.info(request, "Account information updated successfully")
+        
+        context = {
+            'page_title': 'Profile',
+        }
+        return render(request, template_name,context)
 
-
+class ChangePasswordView(View):
+    def get(self, request):
+        template_name = 'pages/profile.html'
+        context = {
+            'page_title': 'Profile',
+        }
+        return render(request, template_name,context)
+    
+    def post(self, request):
+        template_name = 'pages/profile.html'
+        context = {
+            'page_title': 'Profile',
+        }
+        current_password = request.POST.get('password')
+        new_password = request.POST.get('newPassword')
+        confirm_password = request.POST.get('renewpassword')
+        if request.user.check_password(current_password):
+            if new_password == confirm_password:
+                request.user.set_password(new_password)
+                request.user.save()
+                messages.success(request, 'Password changed successfully')
+                print("Password changed successfully")
+                return render(request, template_name, context)
+            else:
+                messages.error(
+                    request,
+                    'New password and confirm password does not match')
+                return render(request, template_name, context)
+        else:
+            messages.error(request, 'Old Password Not Valid!')
+            print('Old Password Not Valid!')
+            return render(request, template_name, context)
+        
 class BlogsView(View):
     def get(self, request):
         template_name = 'pages/blogs.html'
