@@ -545,32 +545,33 @@
                         <h2 class="fs-2 fw-normal lh-1 text-dark mb-3">Get in touch !</h2>
                         <p class="text-gray-700 fs-18 fs-lg mb-4 mb-md-5 ">Always available for freelancing
                            if the right project <br> comes along, Feel free to contact me.</p>
-                        <form method="post" name="myForm" onsubmit="return validateForm()">
+                        <form action="{% url 'frontend:send_mail' %}" method="POST">
+                           {% csrf_token %}
                            <span id="error-msg"></span>
                            <div class="row">
                               <div class="col-md-6 mb-3">
                                  <label class="fw-medium form-label fs-16" for="name">Name</label>
-                                 <input type="text" class="form-control" placeholder="Your name" id="name" />
+                                 <input type="text" class="form-control" placeholder="Your name" name="name" />
                               </div>
                               <!-- end col -->
                               <div class="col-md-6 mb-3">
                                  <label class="fw-medium form-label  fs-16" for="email">Email</label>
-                                 <input type="email" class="form-control" placeholder="Your email" id="email" />
+                                 <input type="email" class="form-control" placeholder="Your email" name="email" />
                               </div>
                               <!-- end col -->
                               <div class="col-md-6 mb-3">
                                  <label class="fw-medium form-label  fs-16" for="subject">Subject</label>
-                                 <input type="text" class="form-control" placeholder="your subject" id="subject" />
+                                 <input type="text" class="form-control" placeholder="your subject" name="subject" />
                               </div>
                               <!-- end col -->
                               <div class="col-md-6 mb-3">
-                                 <label class="fw-medium form-label  fs-16" for="number">Contact</label>
-                                 <input type="text" class="form-control" placeholder="Your phone number" id="number" />
+                                 <label class="fw-medium form-label  fs-16" for="number">Phone</label>
+                                 <input type="text" class="form-control" placeholder="Your phone number" name="phone" />
                               </div>
                               <!-- end col -->
                               <div class="col-12 mb-3">
-                                 <label class="fw-medium form-label  fs-16" for="comments">Message</label>
-                                 <textarea class="form-control" id="comments" placeholder="Enter your message..."
+                                 <label class="fw-medium form-label  fs-16" for="message">Message</label>
+                                 <textarea class="form-control" name="message" placeholder="Enter your message..."
                                     rows="5"></textarea>
                               </div>
                               <!-- end col -->

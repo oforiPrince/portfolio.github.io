@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -6,6 +5,8 @@ from django.views import View
 from backend.models import *
 from accounts.models import User
 from blog.models import Blog, Tag, Category
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 class indexView(View):
@@ -30,12 +31,12 @@ class indexView(View):
             'knowledges': knowledges,
             'blogs': blogs,
             'categories': categories,
-            'frameworks':frameworks,
-            'services':services,
-            'schools':schools,
-            'testimonials':testimonials,
-            'projects':projects,
-            'project_types':project_types,
+            'frameworks': frameworks,
+            'services': services,
+            'schools': schools,
+            'testimonials': testimonials,
+            'projects': projects,
+            'project_types': project_types,
         }
         return render(request, template_name, context)
 
@@ -59,12 +60,13 @@ class AboutView(View):
         projects = Project.objects.all()
         context = {
             'user': user,
-            'frameworks':frameworks,
-            'schools':schools,
-            'projects':projects,
+            'frameworks': frameworks,
+            'schools': schools,
+            'projects': projects,
         }
         return render(request, template_name, context)
-    
+
+
 class ServicesView(View):
     def get(self, request):
         template_name = 'website/pages/services.html'
@@ -72,15 +74,17 @@ class ServicesView(View):
         services = Service.objects.all()
         context = {
             'user': user,
-            'services':services,
+            'services': services,
         }
         return render(request, template_name, context)
 
+
 class ResumeView(View):
-    def get(self,request):
+    def get(self, request):
         template_name = 'website/pages/resume.html'
-        
+
         return render(request, template_name)
+
 
 class ProjectsView(View):
     def get(self, request):
@@ -94,7 +98,8 @@ class ProjectsView(View):
             'project_types': project_types,
         }
         return render(request, template_name, context)
-    
+
+
 class BlogView(View):
     def get(self, request):
         template_name = 'website/pages/blog.html'
@@ -108,6 +113,7 @@ class BlogView(View):
         }
         return render(request, template_name, context)
 
+
 class ContactView(View):
     def get(self, request):
         template_name = 'website/pages/contact.html'
@@ -116,6 +122,7 @@ class ContactView(View):
             'user': user
         }
         return render(request, template_name, context)
+
 
 class BlogDetailView(View):
     def get(self, request, id):
@@ -129,3 +136,41 @@ class BlogDetailView(View):
         }
         return render(request, template_name, context)
 
+
+class SendMailView(View):
+    def post(self, request):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        message_string = f"""
+        Hello Prince Ofori,
+        You've received a new message from {name} with the email {email}
+        
+        Subject: {subject}
+        
+        Message:
+        
+        {message}
+        
+        Phone: {phone}
+        
+        Please reply to {email}
+        """
+        send_mail(
+            subject,
+            message,
+            email,
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+        # send_mail(
+        #     subject,
+        #     message_string,
+        #     settings.EMAIL_HOST_USER,
+        #     ['princeofori723@gmail.com'],
+
+        # )
+        messages.success(request, "Email sent successfully")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

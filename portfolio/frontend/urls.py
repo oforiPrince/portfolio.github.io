@@ -9,6 +9,7 @@ urlpatterns = [
     path('resume/',views.ResumeView.as_view(),name='resume'),
     path('projects/',views.ProjectsView.as_view(),name='projects'),
     path('blog/',views.BlogView.as_view(),name='blogs'),
+    path('send_mail',views.SendMailView.as_view(),name='send_mail'),
     
     path('blog/detail/<int:id>/',views.BlogDetailView.as_view(),name='blog_detail'),
 ]
