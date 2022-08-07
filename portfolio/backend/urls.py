@@ -15,8 +15,10 @@ urlpatterns = [
     path('tags/', views.TagsView.as_view(), name='tags'),
     path('create_update_tag/', views.CreateUpdateTagView.as_view(),
          name='create_update_tag'),
-    path('update_blog/<int:blog_id>/',
+    path('blog_detail/',
+         views.BlogDetailView.as_view(), name='blog_detail'),
+    path('update_blog/',
          views.UpdateBlogView.as_view(), name='update_blog'),
-    path('delete_blog/<int:blog_id>/',
+    path('delete_blog/',
          views.DeleteBlogView.as_view(), name='delete_blog'),
 ]

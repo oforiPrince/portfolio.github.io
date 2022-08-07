@@ -10,11 +10,11 @@ from blog.forms import BlogForm, CategoryForm, TagForm
 class DashboardView(View):
     def get(self, request):
         template_name = 'pages/index.html'
-        
+
         context = {
             'page_title': 'Dashboard',
         }
-        return render(request, template_name,context)
+        return render(request, template_name, context)
 
 
 class ProfileView(View):
@@ -23,8 +23,8 @@ class ProfileView(View):
         context = {
             'page_title': 'Profile',
         }
-        return render(request, template_name,context)
-    
+        return render(request, template_name, context)
+
     def post(self, request):
         template_name = 'pages/profile.html'
         user = request.user
@@ -37,11 +37,12 @@ class ProfileView(View):
         user.email = request.POST.get('email')
         user.save()
         messages.info(request, "Account information updated successfully")
-        
+
         context = {
             'page_title': 'Profile',
         }
-        return render(request, template_name,context)
+        return render(request, template_name, context)
+
 
 class ChangePasswordView(View):
     def get(self, request):
@@ -49,8 +50,8 @@ class ChangePasswordView(View):
         context = {
             'page_title': 'Profile',
         }
-        return render(request, template_name,context)
-    
+        return render(request, template_name, context)
+
     def post(self, request):
         template_name = 'pages/profile.html'
         context = {
@@ -64,7 +65,6 @@ class ChangePasswordView(View):
                 request.user.set_password(new_password)
                 request.user.save()
                 messages.success(request, 'Password changed successfully')
-                print("Password changed successfully")
                 return render(request, template_name, context)
             else:
                 messages.error(
@@ -73,9 +73,9 @@ class ChangePasswordView(View):
                 return render(request, template_name, context)
         else:
             messages.error(request, 'Old Password Not Valid!')
-            print('Old Password Not Valid!')
             return render(request, template_name, context)
-        
+
+
 class BlogsView(View):
     def get(self, request):
         template_name = 'pages/blogs.html'
@@ -93,7 +93,7 @@ class CreateBlogView(View):
         form = BlogForm()
         context = {
             'form': form,
-            'page_title': 'Create Update Blog',
+            'page_title': 'Create Blog',
         }
         return render(request, template_name, context)
 
@@ -110,24 +110,46 @@ class CreateBlogView(View):
             messages.success(request, "Blog created successfully")
             return render(request, template_name, context)
         else:
-            print(form.errors)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+class BlogDetailView(View):
+    def post(self, request):
+        template_name = "pages/blog_detail.html"
+        blog_id = request.POST.get('blog_id')
+        blog = Blog.objects.get(id=blog_id)
+        form = BlogForm(instance=blog)
+        context = {
+            'form': form,
+            'page_title': 'Blog Detail',
+            'blog_id': blog_id,
+        }
+        return render(request, template_name, context)
+
+
 class UpdateBlogView(View):
-    def get(self,request, blog_id):
-        template_name = "pages/update_blog.html"
-        
-        return render(request,template_name)
-    
-    def post(self,request,blog_id):
+    def post(self, request):
         template_name = "pages/blogs.html"
-        
-        return render(request,template_name)
+        blog_id = request.POST.get('blog_id')
+        blog = Blog.objects.get(id=blog_id)
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        context = {
+            'blogs': Blog.objects.all().order_by('-date_created'),
+            'page_title': 'Blogs',
+        }
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Blog updated successfully")
+            return render(request, template_name, context)
+        else:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 class DeleteBlogView(View):
-    def get(self, request, blog_id):
+    def post(self, request):
         template_name = 'pages/blogs.html'
-        blog = Blog.objects.get(pk=blog_id)
+        blog_id = request.POST.get('blog_id')
+        blog = Blog.objects.get(id=blog_id)
         blog.delete()
         blogs = Blog.objects.all().order_by('-date_created')
         context = {
@@ -137,15 +159,16 @@ class DeleteBlogView(View):
         messages.success(request, "Blog deleted successfully")
         return render(request, template_name, context)
 
+
 class CategoriesView(View):
     def get(self, request):
         template_name = 'pages/categories.html'
         categories = Category.objects.all()
-        print(categories)
         context = {
             'page_title': 'Categories',
+            'categories': categories,
         }
-        return render(request, template_name,context)
+        return render(request, template_name, context)
 
 
 class CreateUpdateCategoryView(View):
@@ -156,13 +179,12 @@ class CreateUpdateCategoryView(View):
             'form': form,
             'page_title': 'Create Update Category',
         }
-        return render(request, template_name,context)
+        return render(request, template_name, context)
 
     def post(self, request):
         template_name = 'pages/categories.html'
         form = CategoryForm(request.POST)
         categories = Category.objects.all()
-        print(categories)
         context = {
             'categories': categories,
             'page_title': 'Categories',
@@ -183,11 +205,10 @@ class TagsView(View):
     def get(self, request):
         template_name = 'pages/tags.html'
         tags = Tag.objects.all()
-        print(tags)
         context = {
-                'page_title': 'Tags',
-            }
-        return render(request, template_name,context)
+            'page_title': 'Tags',
+        }
+        return render(request, template_name, context)
 
 
 class CreateUpdateTagView(View):
@@ -198,7 +219,7 @@ class CreateUpdateTagView(View):
             'form': form,
             'page_title': 'Create Update Tag'
         }
-        return render(request, template_name,context)
+        return render(request, template_name, context)
 
     def post(self, request):
         template_name = 'pages/tags.html'
@@ -218,5 +239,4 @@ class CreateUpdateTagView(View):
                 messages.success(request, "Tag created successfully")
                 return render(request, template_name, context)
         else:
-            print(form.errors)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% block title %}Blog{% endblock title %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+{% block page_title_ %}{{page_title}}{% endblock page_title_ %}
+{% block content %}
+<section class="section">
+  <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="card mt-4">
+        <div class="card-body p-4">
+          <form action="{% url 'backend:update_blog' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <div class="d-flex justify-content-end">
+              <div class="mx-3">
+                <input type="hidden" name="blog_id" value="{{blog_id}}">
+                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+              </div>
+              <form action="{% url 'backend:delete_blog' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="blog_id" value="{{blog_id}}">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+{% endblock content %}

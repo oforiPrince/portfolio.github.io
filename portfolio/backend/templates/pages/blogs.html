@@ -34,11 +34,25 @@
                               <td>{{blog.title|truncatewords:7}}</td>
                               <td>{{blog.date_created|date:"D M, Y"}}</td>
                               <td>
-                                 <span
-                                        class="badge bg-{{blog.published|yesno:"success,danger"}}">{{blog.published|yesno:"Yes,No"}}</span>
+                                 <div
+                                        class="badge bg-{{blog.published|yesno:"success,danger"}}">{{blog.published|yesno:"Yes,No"}}</div>
                               <td>
-                                 <a href="{% url 'backend:update_blog' blog.id %}" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>
-                                 <a href="{% url 'backend:delete_blog' blog.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                 <div class="d-flex flex-row">
+                                    <div class="mx-2">
+                                       <form action="{% url 'backend:blog_detail' %}" method="POST">
+                                          {% csrf_token %}
+                                          <input type="hidden" name="blog_id" value="{{blog.id}}">
+                                          <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button>
+                                       </form>
+                                    </div>
+                                    <div class="">
+                                       <form action="{% url 'backend:delete_blog' %}" method="post">
+                                          {% csrf_token %}
+                                          <input type="hidden" name="blog_id" value="{{blog.id}}">
+                                          <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                       </form>
+                                    </div>
+                                 </div>
                               </td>
                            </tr>
                            {% endfor %}
