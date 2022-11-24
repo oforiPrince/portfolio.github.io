@@ -53,8 +53,8 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -129,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 MEDIA_ROOT = BASE_DIR / 'assets/'
 MEDIA_URL = '/assets/'
@@ -160,3 +160,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import dj_database_url
 prod_db = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
+import django_heroku
+django_heroku.settings(locals())
